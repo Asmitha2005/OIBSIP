@@ -1,0 +1,51 @@
+import datetime
+import re
+
+# Function to greet the user
+def greet():
+    responses = ["Hello!", "Hi there!", "Hey!", "Hi! How can I assist you today?"]
+    return responses
+
+# Function to get the current date
+def get_date():
+    now = datetime.datetime.now()
+    return now.strftime("%A, %B %d, %Y")
+
+# Function to get the current time
+def get_time():
+    now = datetime.datetime.now()
+    return now.strftime("%I:%M %p")
+
+# Function to search the web (simulated)
+def search_web(query):
+    # Simulated web search
+    return f"Here are the search results for '{query}'..."
+
+# Function to handle user queries
+def handle_query(query):
+    if re.search(r'\bhello\b', query, re.IGNORECASE):
+        return greet()
+    elif re.search(r'\b(date|day|today)\b', query, re.IGNORECASE):
+        return [get_date()]
+    elif re.search(r'\btime\b', query, re.IGNORECASE):
+        return [get_time()]
+    else:
+        return [search_web(query)]
+
+# Main function to simulate voice assistant behavior
+def voice_assistant():
+    print("Welcome! How can I assist you?")
+
+    while True:
+        user_input = input("You: ").strip().lower()
+
+        if user_input == 'exit':
+            print("Goodbye!")
+            break
+
+        responses = handle_query(user_input)
+        for response in responses:
+            print(f"Assistant: {response}")
+
+if __name__ == "__main__":
+    voice_assistant()
